@@ -22,8 +22,13 @@ def perceptronStep(X, y, W, b, learn_rate = 0.01):
     # Fill in code
     #print("FIXME: len(X) = " +str(len(X)))
     #print("FIXME: " +str(X))
+    y_hat = prediction(X, W, b)
+    print("FIXME: y_hat = " + str(y_hat))
     for x1, x2 in X:
-        print("x1, x2 = %f, %f" % (x1, x2))
+        if y_hat == 1:
+            print("FIXME: above")
+        if y_hat == 0:
+            print("FIXME: below")
     quit()
     return W, b
   
