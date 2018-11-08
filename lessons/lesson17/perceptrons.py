@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 #
-
+import pdb
 import numpy as np
+print("eh?")
 # Setting the random seed, feel free to change it and see different solutions.
 np.random.seed(42)
 def stepFunction(t):
@@ -18,9 +19,13 @@ def prediction(X, W, b):
 # update the weights and bias W, b, according to the perceptron algorithm,
 # and return W and b.
 def perceptronStep(X, y, W, b, learn_rate = 0.01):
-   # Fill in code
-    
-   return W, b
+    # Fill in code
+    #print("FIXME: len(X) = " +str(len(X)))
+    #print("FIXME: " +str(X))
+    for x1, x2 in X:
+        print("x1, x2 = %f, %f" % (x1, x2))
+    quit()
+    return W, b
   
 # This function runs the perceptron algorithm repeatedly on the dataset,
 # and returns a few of the boundary lines obtained in the iterations,
