@@ -18,19 +18,51 @@ def prediction(X, W, b):
 # the weights W (as an array), and the bias b,
 # update the weights and bias W, b, according to the perceptron algorithm,
 # and return W and b.
-def perceptronStep(X, y, W, b, learn_rate = 0.01):
+def perceptronStep_mine(X, y, W, b, learn_rate = 0.01):
     # Fill in code
-    #print("FIXME: len(X) = " +str(len(X)))
-    #print("FIXME: " +str(X))
+    global cnt
     y_hat = prediction(X, W, b)
-    print("FIXME: y_hat = " + str(y_hat))
-    for x1, x2 in X:
-        if y_hat == 1:
-            print("FIXME: above")
-        if y_hat == 0:
-            print("FIXME: below")
-    quit()
+ 
+    #print("FIXME: cnt = %d" % cnt)
+    cnt += 1
+
+    for pt_ix in range(len(X)):
+        x = X[pt_ix]
+        delta = y[pt_ix] - y_hat
+        adj = np.array([[X[pt_ix][i] * learn_rate] for i in range(W.shape[0])])
+        #print("FIXME: W.shape = " + str(W.shape))
+        #print("FIXME: type(W) = " + str(type(W)))
+        #print("FIXME: W = " + str(W))
+        #print("FIXME: adj.shape = " + str(adj.shape))
+        #print("FIXME: type(adj) = " + str(type(adj)))
+        #print("FIXME: adj = " + str(adj))
+        if delta == 1:
+            W += adj
+            b += learn_rate
+        if delta == -1:
+            W -= adj
+            b -= learn_rate
     return W, b
+    
+def perceptronStep_theirs(X, y, W, b, learn_rate = 0.01):
+    for i in range(len(X)):
+        y_hat = prediction(X[i],W,b)
+        if y[i]-y_hat == 1:
+            W[0] += X[i][0]*learn_rate
+            W[1] += X[i][1]*learn_rate
+            b += learn_rate
+        elif y[i]-y_hat == -1:
+            W[0] -= X[i][0]*learn_rate
+            W[1] -= X[i][1]*learn_rate
+            b -= learn_rate
+    return W, b
+
+def perceptronStep(X, y, W, b, learn_rate = 0.01):
+    W_m, b_m = perceptronStep_mine(X, y, W, b, learn_rate)
+    W_t, b_t = perceptronStep_theirs(X, y, W, b, learn_rate)
+    if W_m.all() != W_t.all() or b_m != b_t:
+        print("bad juju")
+    return W_t, b_t
   
 # This function runs the perceptron algorithm repeatedly on the dataset,
 # and returns a few of the boundary lines obtained in the iterations,
