@@ -6,16 +6,21 @@ def _softmax(ndarray_logits):
     nda_logits = ndarray_logits
     shape = nda_logits.shape
     dims = len(shape)
-    assert(dims == 1 or dims ==3)
-    print("dims = " + str(len(shape)))
+
+    assert(dims == 1 or dims ==2)
+    assert(type(nda_logits) is np.ndarray)
+    print("nda_logits = " + str(nda_logits))
     
 def softmax(logits):
-    print("type(logits_ = " + str(type(logits)))
-    print("logits = " + str(logits))
     assert(type(logits) is list or type(logits) is np.ndarray)
     
     if type(logits) is list:
-        return _softmax (np.array(logits))
+        npa = np.array(logits)
+        npa_col_vec = npa.reshape(-1, 1)
+        import pdb
+        pdb.set_trace()
+        print("npa_col_vec = " + str(npa_col_vec))
+        return _softmax (npa_col_vec)
     else:
             return _softmax(logits)
 
