@@ -11,10 +11,7 @@ def _softmax(ndarray_logits):
     assert(type(nda_logits) is np.ndarray)
     exp_logits = np.exp(nda_logits)
     exp_logits_col_sum  = np.sum(exp_logits,0) #column sum
-    #FIXME: multiply every elt in exp_logits by sum of logits in the
-    #            column. IWBNI you could vectorize that
-    print("nda_logits = " + str(nda_logits))
-    print("exp_logits = " + str(exp_logits))
+    return exp_logits / exp_logits_col_sum
     
 def softmax(logits):
     assert(type(logits) is list or type(logits) is np.ndarray)
@@ -22,13 +19,16 @@ def softmax(logits):
     if type(logits) is list:
         npa = np.array(logits)
         npa_col_vec = npa.reshape(-1, 1)
-        import pdb
         return _softmax (npa_col_vec)
     else:
             return _softmax(logits)
 
-softmax([1.0, 2.0, 3.0])
-softmax(np.array([
+ret = softmax([1.0, 2.0, 3.0])
+print("ret = " + str(ret))
+
+ret = softmax(np.array([
     [1, 2, 3, 6],
     [2, 4, 5, 6],
     [3, 8, 7, 6]]))
+print("ret = " + str(ret))
+
